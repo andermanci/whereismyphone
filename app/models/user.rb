@@ -18,6 +18,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   validates_uniqueness_of :username
 
+  has_many :devices, dependent: :destroy
 
 
   def self.authenticate(email, password)
