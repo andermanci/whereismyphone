@@ -1,0 +1,23 @@
+<% if current_user %>
+    <div class="container">
+      <div class="row">
+    <% @devices.each do |device| %>
+            <div class="col-sm-4">
+              <a href="<%=phone_path%>">
+                <div class="panel panel-primary">
+                  <div class="panel-heading"><%= (device.name) %></div>
+                  <div class="panel-body"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/83002-200.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                  <div class="panel-footer"><%= (device.info) %></div>
+                </div>
+              </a>
+            </div>
+    <% end %>
+
+      </div>
+    </div><br>
+<% else %>
+    <br><br><br><br>
+    <br><br><br><br>
+    <h1>ONGI ETORRI</h1>
+<% end %>
+</div><br><br>

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <% if current_user %>
+          <ul class="nav navbar-nav">
+            <li><a>Ongi etorri: <%= current_user.username %></a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="<%=root_path%>">Home</a></li>
+            <li><a href="<%=signed_out_path%>">Sign Out</a></li>
+          </ul>
+      <% else %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="<%=root_path%>">Home</a></li>
+            <li><a href="<%=new_user_path%>">Sign up</a></li>
+            <li><a href="<%=sign_in_path%>">Sign In</a></li>
+          </ul>
+      <% end %>
+    </div>
+  </div>
+</nav>
