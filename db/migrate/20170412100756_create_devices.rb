@@ -2,10 +2,9 @@ class CreateDevices < ActiveRecord::Migration[5.0]
   def change
     create_table(:devices) do |t|
       t.references :user
-      t.column :ip, :string
+      t.column :token, :string
       t.column :name, :string
       t.column :info, :string
-      t.timestamps
-  end
+    end
   end
 end

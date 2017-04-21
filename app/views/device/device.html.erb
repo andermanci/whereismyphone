@@ -1,0 +1,68 @@
+<% if current_device %>
+    <div class="container">
+
+      <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                  <div class="panel-heading"><%= current_device.name %></div>
+                  <div class="panel-body"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/83002-200.png" class="img-responsive" style="width:100%" alt="Image"></div>
+                  <div class="panel-footer"><%= current_device.info %></div>
+                </div>
+              </a>
+            </div>
+
+        <% if session[:GPS].nil? || session[:GPS].to_s=='no' %>
+        <%= button_to "Activate GPS", {:action => 'activate_GPS' } ,
+                                {class: 'btn btn-success btn-lg '} %>
+        <% else %>
+        <%= button_to "Desactivate GPS", {:action => 'desactivate_GPS' } ,
+                      {class: 'btn btn-warning btn-lg '} %>
+        <% end %>
+        <% if session[:alarm].nil? ||session[:alarm].to_s=='no' %>
+        <%= button_to "Activate Alarm", { :action => 'activate_alarm' } ,
+                      {class: 'btn btn-danger btn-lg '} %>
+        <% else %>
+        <%= button_to "Desactivate Alarm", {:action => 'desactivate_alarm' } ,
+                      {class: 'btn btn-warning btn-lg '} %>
+        <% end %>
+    </div><br>
+
+      <h2>GPS SIGNAL DATES</h2>
+      <table class="table table-hover">
+        <thead class="thead-inverse">
+        <tr>
+          <th>Year</th>
+          <th>Month</th>
+          <th>Day</th>
+        </tr>
+        </thead>
+        <tbody>
+
+          <% @device_gps_days.each do |date| %>
+            <tr class='clickable-row' data-href="<%= "/device/"+(current_device.id).to_s+"/"+date[:year].to_s+"/"+date[:month].to_s+"/"+date[:day].to_s %>">
+              <td><%= date[:year] %></td>
+              <td><%= date[:month] %></td>
+              <td><%= date[:day] %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+
+
+
+
+<% else %>
+    <% redirect_to :root %>
+<% end %>
+</div><br><br>
+
+<script>
+
+
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
+</script>

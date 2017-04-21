@@ -1,18 +1,23 @@
+
+
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "WhereIsMyPhone", root_path, id: "logo" %>
+    <%= link_to "WhereIsMyPhone", '#', id: "logo" %>
     <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   root_path %></li>
           <% if current_user %>
-            <li><%= current_user.username %></li>
-            <li><%= link_to "Sign Out", signed_out_path %></li>
+              <ul class="nav navbar-nav navbar-right">
+              <li><a>Ongi etorri: <%= current_user.username %></a></li>
+              <li><a href="<%=root_path%>">Home</a></li>
+              <li><a href="<%=signed_out_path%>">Sign Out</a></li>
+              </ul>
           <% else %>
-            <li><%= link_to "Sign up", new_user_path %></li>
-            <li><%= link_to "Sign In", sign_in_path %></li>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="<%=root_path%>">Home</a></li>
+                <li><a href="<%=new_user_path%>">Sign up</a></li>
+                <li><a href="<%=sign_in_path%>">Sign In</a></li>
+              </ul>
           <% end %>
-
-      </ul>
     </nav>
+
   </div>
 </header>
