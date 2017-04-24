@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420133957) do
+ActiveRecord::Schema.define(version: 20170419110823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "devices", force: :cascade do |t|
     t.integer "user_id"
-    t.string  "ip"
+    t.string  "token"
     t.string  "name"
     t.string  "info"
     t.index ["user_id"], name: "index_devices_on_user_id", using: :btree
@@ -35,8 +35,7 @@ ActiveRecord::Schema.define(version: 20170420133957) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
-    t.string "password_hash"
-    t.string "password_salt"
+    t.string "password"
   end
 
 end

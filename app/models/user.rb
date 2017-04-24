@@ -1,5 +1,8 @@
 
 class User < ApplicationRecord
+  require 'digest/sha1'
+
+
   validates :username,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -7,11 +10,9 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
 
-  attr_accessor :password
   before_save :encrypt_password
 
 
-  validates_confirmation_of :password
   validates_presence_of :password, :on => :create
   validates_presence_of :email, :on => :create
   validates_presence_of :username, :on => :create
@@ -23,7 +24,7 @@ class User < ApplicationRecord
 
   def self.authenticate(email, password)
     user = find_by_email(email)
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
+    if user && user.password == Digest::SHA1.hexdigest(password)
       user
     else
       nil
@@ -32,14 +33,13 @@ class User < ApplicationRecord
 
   def encrypt_password
     if password.present?
-      self.password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+      self.password =  Digest::SHA1.hexdigest(password)
     end
   end
 
   def self.authenticate_by_email(email, password)
     user = find_by_email(email)
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
+    if user && user.password == Digest::SHA1.hexdigest(password)
       user
     else
       nil
