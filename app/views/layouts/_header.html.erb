@@ -8,6 +8,7 @@
               <ul class="nav navbar-nav navbar-right">
               <li><a>Ongi etorri: <%= current_user.username %></a></li>
               <li><a href="<%=root_path%>">Home</a></li>
+                <li><a href="<%=change_password_path%>">Change password</a></li>
               <li><a href="<%=signed_out_path%>">Sign Out</a></li>
               </ul>
           <% else %>

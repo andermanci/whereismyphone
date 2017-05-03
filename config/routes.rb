@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   #!Get bidez, sign_in deitzean, authentication_controllerreko sign_in exekutatu
   get "sign_in" => "authentication#sign_in"
   get "signed_out" => "authentication#signed_out"
-  get "change_password" => "authentication#change_password"
+  get "change_password" => "users#update_password"
   get "forgot_password" => "authentication#forgot_password"
   get "new_user" => "authentication#new_user"
   get "password_sent" => "authentication#password_sent"
@@ -32,4 +32,10 @@ Rails.application.routes.draw do
   #GPS Date
 
   get '/device/:id/:year/:month/:day', to: 'gps#show_locations'
+
+  resource :user, only: [:edit] do
+    collection do
+      patch 'update_password'
+    end
+  end
 end
