@@ -39,7 +39,6 @@ class DeviceController < ApplicationController
       # options = { data:{score: "123"}, collapse_key: "activate_GPS"}
       response = fcm.send(current_device.token, options)
 
-
       session[:GPS]= 'yes'
       render 'device/device'
     else
