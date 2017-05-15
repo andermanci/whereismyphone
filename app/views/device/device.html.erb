@@ -38,13 +38,7 @@
         </thead>
         <tbody>
 
-          <% @device_gps_days.each do |date| %>
-            <tr class='clickable-row' data-href="<%= "/device/"+(current_device.id).to_s+"/"+date[:year].to_s+"/"+date[:month].to_s+"/"+date[:day].to_s %>">
-              <td><%= date[:year] %></td>
-              <td><%= date[:month] %></td>
-              <td><%= date[:day] %></td>
-            </tr>
-        <% end %>
+
         </tbody>
       </table>
 
