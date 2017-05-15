@@ -37,7 +37,7 @@ class DeviceController < ApplicationController
       options[:notification][:title] = 'proba'
       options[:notification][:body] = 'funtzionatzen du'
       # options = { data:{score: "123"}, collapse_key: "activate_GPS"}
-      response = fcm.send(current_device.token, options)
+      response = fcm.send(['c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA'], options)
 
       session[:GPS]= 'yes'
       render 'device/device'
