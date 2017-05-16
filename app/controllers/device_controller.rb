@@ -1,8 +1,9 @@
 
 class DeviceController < ApplicationController
 
-  require 'fcm'
+
   require 'firebase'
+  require 'gcm'
 
   def selected_device
 
@@ -29,15 +30,34 @@ class DeviceController < ApplicationController
 
 
   def activate_GPS
+    # if current_device
+    #
+    #   session[:GPS]= 'yes'
+    #   respond_to do |format|
+    #     'device/device'
+    #     device.js {render js: sendPush()}
+    #   end
+    # else
+    #     redirect_to :root
+    # end
+
+
+
+
     if current_device
 
-      fcm = FCM.new(ENV['AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ'])
-      options = {priority: 'high'}
-      options[:notification] = {}
-      options[:notification][:title] = 'proba'
-      options[:notification][:body] = 'funtzionatzen du'
-      # options = { data:{score: "123"}, collapse_key: "activate_GPS"}
-      response = fcm.send(['c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA'], options)
+      require 'fcm'
+      fcm = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
+      # options = {}
+      # # options = {title: 'GPS', collapse_key: 'io.cordova.whereismyphone', gps: 'activate', wasTapped: true, body: 'activate', from: '/topics/all'}
+      # options = { "data": {
+      #     "title": "GPS"
+      # }
+      #            }
+      # # options = { data:{score: "123"}, collapse_key: "activate_GPS"}
+      # response = fcm.send('c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA',options)
+      # response1 = fcm.send_notification('c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA',options)
+      response2 = fcm.send_with_notification_key("/topics/all",data: {message: "This is a FCM Topic Message!"})
 
       session[:GPS]= 'yes'
       render 'device/device'
@@ -46,6 +66,28 @@ class DeviceController < ApplicationController
     end
 
   end
+
+  # def activate_GPS
+  #   if current_device
+  #
+  #     require 'gcm'
+  #     gcm = GCM.new(ENV['AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ'])
+  #
+  #     options = {title: 'GPS', collapse_key: 'io.cordova.whereismyphone'}
+  #
+  #     response = gcm.send(current_device.token, options)
+  #
+  #     session[:GPS]= 'yes'
+  #     render 'device/device'
+  #   else
+  #     redirect_to :root
+  #   end
+  #
+  # end
+
+
+
+
 
 
 
@@ -61,6 +103,7 @@ class DeviceController < ApplicationController
   #
   #
   #     response = firebase.push("todos", { :name => 'Pick the milk', :priority => 1 })
+  #     firebase.push
   #     response.success? # => true
   #     response.code # => 200
   #     response.body # => { 'name' => "-INOQPH-aV_psbk3ZXEX" }

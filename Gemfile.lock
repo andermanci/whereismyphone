@@ -69,6 +69,9 @@ GEM
     firebase (0.2.6)
       httpclient
       json
+    gcm (0.1.1)
+      httparty
+      json
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     httparty (0.15.2)
@@ -177,6 +180,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   fcm
   firebase
+  gcm
   jbuilder (~> 2.5)
   jquery-rails
   pg (~> 0.18)

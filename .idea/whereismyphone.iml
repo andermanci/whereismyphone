@@ -513,6 +513,7 @@
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.7.0, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fcm (v0.0.2, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="firebase (v0.2.6, rbenv: 2.2.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="gcm (v0.1.1, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.0, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="httparty (v0.15.2, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="httpclient (v2.8.3, rbenv: 2.2.6) [gem]" level="application" />
