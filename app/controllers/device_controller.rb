@@ -81,10 +81,12 @@ class DeviceController < ApplicationController
       options[:notification] = {}
       options[:notification][:title] = 'GPS'
       options[:notification][:body] = 'Calvin Sugianto vote on your post'
-      options[:content_available] = false
+      options[:content_available] = true
       options[:notification][:sound] = "default"
       options[:notification][:click_action] = "FCM_PLUGIN_ACTIVITY"
       options[:wasTapped] = true
+      options[:data] = {}
+      options[:data][:gps] = true
 
       token = current_device.token
       responseServer = fcmServer.send([token], options)
