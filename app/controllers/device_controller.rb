@@ -75,10 +75,10 @@ class DeviceController < ApplicationController
     if current_device
 
       require 'fcm'
-      # fcm = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
+      fcm = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
       # fcmBrowser = FCM.new('AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA')
       # fcmServer = FCM.new('AAAAUm2fpt4:APA91bHWeq-i1Dfc_ZgpQKqL5TIM3MBvXlMC4H8SVi8CDxvJKSEHHWgQvroxBO02XP0MGRZOZ6Y94Mz9auqfW_YzPzi4m0N7UUgvQDhsi0vLKsDKRWi5HpxuWS_nXxwiH0cNZs8fbhe9')
-      fcmServerBerria = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
+      # fcmServerBerria = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
 
       # options = {priority: 'high'}
       # options[:notification] = {}
@@ -91,10 +91,10 @@ class DeviceController < ApplicationController
 
       options = {"title":'GPS', "collapse_key":'io.cordova.whereismyphone', "gps": 'activate', "wasTapped": true, "body": 'activate', "from": '/topics/all', "google.message_id": '0:1494879418378671%419f40cb419f40cb'}
 
-      # response = fcm.send(current_device.token, options)
+      response = fcm.send(current_device.token, options)
       # responseBrowser = fcmBrowser.send(current_device.token, options)
       # responseServer = fcmServer.send(current_device.token, options)
-      responseServerBerria = fcmServerBerria.send(current_device.token, options)
+      # responseServerBerria = fcmServerBerria.send(current_device.token, options)
 
       session[:GPS]= 'yes'
       render 'device/device'
