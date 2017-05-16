@@ -80,7 +80,7 @@ class DeviceController < ApplicationController
       fcmServer = FCM.new('AAAAUm2fpt4:APA91bHWeq-i1Dfc_ZgpQKqL5TIM3MBvXlMC4H8SVi8CDxvJKSEHHWgQvroxBO02XP0MGRZOZ6Y94Mz9auqfW_YzPzi4m0N7UUgvQDhsi0vLKsDKRWi5HpxuWS_nXxwiH0cNZs8fbhe9')
       fcmServerBerria = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
 
-      options = {"priority": high}
+      options = {priority: 'high'}
       options[:notification] = {}
       options[:notification][:title] = 'GPS'
       options[:notification][:body] = 'Calvin Sugianto vote on your post'
