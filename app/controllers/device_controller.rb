@@ -29,53 +29,39 @@ class DeviceController < ApplicationController
 
 
 
-  def activate_GPS
-    # if current_device
-    #
-    #   session[:GPS]= 'yes'
-    #   respond_to do |format|
-    #     'device/device'
-    #     device.js {render js: sendPush()}
-    #   end
-    # else
-    #     redirect_to :root
-    # end
-
-
-
-
-    if current_device
-
-      require 'fcm'
-      fcm = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
-      # options = {}
-      # # options = {title: 'GPS', collapse_key: 'io.cordova.whereismyphone', gps: 'activate', wasTapped: true, body: 'activate', from: '/topics/all'}
-      # options = { "data": {
-      #     "title": "GPS"
-      # }
-      #            }
-      # # options = { data:{score: "123"}, collapse_key: "activate_GPS"}
-      # response = fcm.send('c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA',options)
-      # response1 = fcm.send_notification('c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA',options)
-      response2 = fcm.send_with_notification_key("/topics/all",data: {message: "This is a FCM Topic Message!"})
-
-      session[:GPS]= 'yes'
-      render 'device/device'
-    else
-      redirect_to :root
-    end
-
-  end
-
   # def activate_GPS
+  #   # if current_device
+  #   #
+  #   #   session[:GPS]= 'yes'
+  #   #   respond_to do |format|
+  #   #     'device/device'
+  #   #     device.js {render js: sendPush()}
+  #   #   end
+  #   # else
+  #   #     redirect_to :root
+  #   # end
+  #
+  #
+  #
+  #
   #   if current_device
   #
-  #     require 'gcm'
-  #     gcm = GCM.new(ENV['AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ'])
-  #
-  #     options = {title: 'GPS', collapse_key: 'io.cordova.whereismyphone'}
-  #
-  #     response = gcm.send(current_device.token, options)
+  #     require 'fcm'
+  #     fcm = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
+  #     fcmBrowser = FCM.new('AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA')
+  #     fcmServer = FCM.new('AAAAUm2fpt4:APA91bHWeq-i1Dfc_ZgpQKqL5TIM3MBvXlMC4H8SVi8CDxvJKSEHHWgQvroxBO02XP0MGRZOZ6Y94Mz9auqfW_YzPzi4m0N7UUgvQDhsi0vLKsDKRWi5HpxuWS_nXxwiH0cNZs8fbhe9')
+  #     # options = {}
+  #     # # options = {title: 'GPS', collapse_key: 'io.cordova.whereismyphone', gps: 'activate', wasTapped: true, body: 'activate', from: '/topics/all'}
+  #     # options = { "data": {
+  #     #     "title": "GPS"
+  #     # }
+  #     #            }
+  #     # # options = { data:{score: "123"}, collapse_key: "activate_GPS"}
+  #     # response = fcm.send('c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA',options)
+  #     # response1 = fcm.send_notification('c4l1JrhoVQA:APA91bHnqINvH71_ijYwgIA-OUoqb51gLx1T-MAghxG_1TSE0TdIWdmLA03aYB0A72oaRNNMjUqCcCv52KpOmTxslYLf1-gyoYcvK9M4O617SCdPbhTtgxD9YJ7fzC6C7r7oZIJ8HTDA',options)
+  #     response2 = fcm.send_with_notification_key("/topics/all",data: {message: "This is a FCM Topic Message!"})
+  #     responseBrowser = fcmBrowser.send_with_notification_key("/topics/all",data: {message: "This is a FCM Topic Message 1!"})
+  #     responseServer = fcmServer.send_with_notification_key("/topics/all",data: {message: "This is a FCM Topic Message 2!"})
   #
   #     session[:GPS]= 'yes'
   #     render 'device/device'
@@ -84,6 +70,35 @@ class DeviceController < ApplicationController
   #   end
   #
   # end
+
+  def activate_GPS
+    if current_device
+
+      require 'fcm'
+      fcm = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
+      fcmBrowser = FCM.new('AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA')
+      fcmServer = FCM.new('AAAAUm2fpt4:APA91bHWeq-i1Dfc_ZgpQKqL5TIM3MBvXlMC4H8SVi8CDxvJKSEHHWgQvroxBO02XP0MGRZOZ6Y94Mz9auqfW_YzPzi4m0N7UUgvQDhsi0vLKsDKRWi5HpxuWS_nXxwiH0cNZs8fbhe9')
+      fcmServerBerria = FCM.new('AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ')
+
+      options = {}
+      options[:notification] = {}
+      options[:notification][:title] = 'GPS'
+      options[:notification][:body] = 'Calvin Sugianto vote on your post'
+      options[:content_available] = true
+      options[:notification][:sound] = "default"
+
+      response = fcm.send(current_device.token, options)
+      responseBrowser = fcmBrowser.send(current_device.token, options)
+      responseServer = fcmServer.send(current_device.token, options)
+      responseServerBerria = fcmServerBerria.send(current_device.token, options)
+
+      session[:GPS]= 'yes'
+      render 'device/device'
+    else
+      redirect_to :root
+    end
+
+  end
 
 
 
