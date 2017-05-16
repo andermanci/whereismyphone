@@ -31,7 +31,7 @@ class DeviceController < ApplicationController
   def activate_GPS
     if current_device
 
-      fcm = FCM.new(ENV['AIzaSyA5HHAEWZufgCID9kiTy8MrkR7cvr_fJh4'])
+      fcm = FCM.new(ENV['AIzaSyBCBYf5qLBOCjd4Nps-yKrO4-MxJyYSSHQ'])
       options = {priority: 'high'}
       options[:notification] = {}
       options[:notification][:title] = 'proba'
