@@ -31,7 +31,9 @@ gem 'bcrypt-ruby', :require=>'bcrypt'
 # gem 'capistrano-rails', group: :development
 gem 'autoprefixer-rails'
 gem 'fcm'
+gem 'geocoder'
 gem 'gcm'
+gem 'gmaps4rails'
 gem 'firebase'
 gem 'bootstrap-sass', '3.3.6'
 group :development, :test do
