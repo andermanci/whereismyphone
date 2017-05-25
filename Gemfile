@@ -34,6 +34,8 @@ gem 'fcm'
 gem 'geocoder'
 gem 'gcm'
 gem 'gmaps4rails'
+gem 'gon'
+gem 'json'
 gem 'firebase'
 gem 'bootstrap-sass', '3.3.6'
 group :development, :test do

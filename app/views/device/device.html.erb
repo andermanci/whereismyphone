@@ -1,50 +1,58 @@
-<script src="//maps.google.com/maps/api/js?key=[AIzaSyADymuvSxOEri6cBmXxg8EBhbQu34Lq3GY]"></script>
-<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
-<script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script> <!-- only if you need custom infoboxes -->
+<!--<script src="//maps.google.com/maps/api/js?key=AIzaSyCXkiUat_KXHuDE_PNVpLL5MZREvoOMfB4"></script>-->
+<!--<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>-->
+<!--<script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script> &lt;!&ndash; only if you need custom infoboxes &ndash;&gt;-->
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXkiUat_KXHuDE_PNVpLL5MZREvoOMfB4"></script>
+
+
 
 <% if current_device %>
     <div class="container">
 
       <div class="row">
-            <div class="col-sm-4">
-                <div class="panel panel-primary">
-                  <div class="panel-heading"><%= current_device.name %></div>
-                  <div class="panel-body"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/83002-200.png" class="img-responsive" style="width:100%" alt="Image"></div>
-                  <div class="panel-footer"><%= current_device.info %></div>
-                </div>
-              </a>
-            </div>
+        <div class="col-sm-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading"><%= current_device.name %></div>
+            <div class="panel-body"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/83002-200.png" class="img-responsive" style="width:100%" alt="Image"></div>
+            <div class="panel-footer"><%= current_device.info %></div>
+          </div>
+
+        </div>
 
         <% if session[:GPS].nil? || session[:GPS].to_s=='no' %>
-        <%= button_to "Activate GPS", {:action => 'activate_GPS' } ,
-                                {class: 'btn btn-success btn-lg '} %>
+            <%= link_to "Activate GPS", {:controller => :device, :action => 'activate_GPS' } ,
+                        {class: 'btn btn-success btn-lg '} %>
+            <%= link_to "Locate in Map", :remote => true, :class => 'getMap' %>
         <% else %>
-        <%= button_to "Desactivate GPS", {:action => 'desactivate_GPS' } ,
-                      {class: 'btn btn-warning btn-lg '} %>
+            <%= link_to "Desactivate GPS", {:controller => :device, :action => 'desactivate_GPS' } ,
+                        {class: 'btn btn-warning btn-lg '} %>
         <% end %>
         <% if session[:alarm].nil? ||session[:alarm].to_s=='no' %>
-        <%= button_to "Activate Alarm", { :action => 'activate_alarm' } ,
-                      {class: 'btn btn-danger btn-lg '} %>
+            <%= link_to "Activate Alarm" ,{:controller => :device, :action => 'activate_alarm' },
+                        {class: 'btn btn-danger btn-lg '} %>
         <% else %>
-        <%= button_to "Desactivate Alarm", {:action => 'desactivate_alarm' } ,
-                      {class: 'btn btn-warning btn-lg '} %>
+            <%= link_to "Desactivate Alarm", {:controller => :device, :action => 'desactivate_alarm' } ,
+                        {class: 'btn btn-warning btn-lg '} %>
         <% end %>
-    </div><br>
+      </div><br>
+      <p><%= @proba %></p>
+      <p><%= @device_gps %></p>
 
-      kaixo
       <div style='width: 800px;'>
-        <div id="map" style='width: 800px; height: 400px;'></div>
+        <div id="map" style='width: 800px; height: 400px;'>
+          <%= render 'device/get_gps' %>
+        </div>
       </div>
-
-      kaixo
+      <br><br><br>
 
       <h2>GPS SIGNAL DATES</h2>
-      <table class="table table-hover">
+      <table class="table table-hover" id="map_container">
         <thead class="thead-inverse">
         <tr>
-          <th>Year</th>
-          <th>Month</th>
           <th>Day</th>
+          <th>Hour</th>
+          <th>Order</th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +70,8 @@
 <% end %>
 </div><br><br>
 
+
+
 <script>
 
 
@@ -72,22 +82,7 @@
     });
 </script>
 
-<script type="text/javascript">
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-        markers = handler.addMarkers([
-            {
-                "lat": 0,
-                "lng": 0,
-                "picture": {
-                    "url": "http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-32.png",
-                    "width":  32,
-                    "height": 32
-                },
-                "infowindow": "hello!"
-            }
-        ]);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-    });
-</script>
+
+
+
+

@@ -1,6 +1,6 @@
 
 class DeviceController < ApplicationController
-
+  helper ApplicationHelper
 
   require 'firebase'
   require 'gcm'
@@ -13,7 +13,6 @@ class DeviceController < ApplicationController
       device= Device.find((params[:id]))
       if device
         #This function will get all the days, where the selected device send a GPS location
-        @device_gps_days=Location.where(device_id: params[:id]).select(:created_at).map{|c| {:year => c.created_at.year,:month => c.created_at.month, :day => c.created_at.day, } }.uniq
 
         @device= device
         session[:device]=params[:id]
@@ -26,7 +25,28 @@ class DeviceController < ApplicationController
     end
   end
 
+  def get_gps
 
+    if current_device
+
+      require 'json'
+      require 'gon'
+      # @proba = 'kaixo'
+      @device_gps2 = Location.where(device_id:1).select(:created_at, :long, :lat, :id).map{|c| {lat: c.lat.to_f, :lng => c.long.to_f, :day => c.created_at.strftime("%Y/%m/%d"), :hour => c.created_at.strftime("%H:%M:%S"), :id => c.id, :infowindow => c.created_at.strftime("%H:%M:%S")}}.uniq
+
+      @device_gps = @device_gps2.to_json
+
+      print(@device_gps)
+
+      gon.device_gps = @device_gps
+
+
+    end
+
+  end
+
+
+  # @device_gps = Location.where(device_id:1).select(:created_at, :long, :lat, :id).map{|c| {:longitude => c.long, :latitude => c.lat, :day => c.created_at.strftime("%Y/%m/%d"), :hour => c.created_at.strftime("%H:%M:%S"), :id => c.id,}}.uniq
 
 
   # def activate_GPS
@@ -92,7 +112,7 @@ class DeviceController < ApplicationController
       responseServer = fcmServer.send([token], options)
 
       session[:GPS]= 'yes'
-      render 'device/device'
+      redirect_to current_device_path
     else
       redirect_to :root
     end
@@ -140,9 +160,9 @@ class DeviceController < ApplicationController
         response = fcm.send(current_device.token, options)
 
         session[:GPS]= 'no'
-        render 'device/device'
+        redirect_to current_device_path
       else
-        render 'device/device'
+        redirect_to current_device_path
       end
     else
       redirect_to :root
@@ -156,7 +176,7 @@ class DeviceController < ApplicationController
       options = { collapse_key: "activate_alarm"}
       response = fcm.send(current_device.token, options)
       session[:alarm]= 'yes'
-      render 'device/device'
+      redirect_to current_device_path
     else
       redirect_to :root
     end
@@ -171,9 +191,9 @@ class DeviceController < ApplicationController
         options = { collapse_key: "desactivate_alarm"}
         response = fcm.send(current_device.token, options)
         session[:alarm]= 'no'
-        render 'device/device'
+        redirect_to current_device_path
       else
-        render 'device/device'
+        redirect_to current_device_path
       end
     else
       redirect_to :root

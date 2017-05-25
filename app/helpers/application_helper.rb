@@ -15,6 +15,18 @@ module ApplicationHelper
     s.html_safe
   end
 
+  def gps_as_json(gpss)
+    gpss.collect do |gps|
+      {
+          :lat => gps.lat,
+          :lng => gps.lng,
+          :day => gps.day,
+          :hour => gps.hour,
+          :id => gps.id
+      }
+    end.to_json
+  end
+
 
 
 end

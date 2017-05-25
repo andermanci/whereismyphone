@@ -517,6 +517,7 @@
     <orderEntry type="library" scope="PROVIDED" name="geocoder (v1.4.3, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.0, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gmaps4rails (v2.1.2, rbenv: 2.2.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="gon (v6.1.0, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="httparty (v0.15.2, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="httpclient (v2.8.3, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.8.1, rbenv: 2.2.6) [gem]" level="application" />
@@ -543,6 +544,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rails-html-sanitizer (v1.0.3, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="railties (v5.0.3, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v12.0.0, rbenv: 2.2.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="request_store (v1.3.2, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass (v3.4.23, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass-rails (v5.0.6, rbenv: 2.2.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v3.7.1, rbenv: 2.2.6) [gem]" level="application" />

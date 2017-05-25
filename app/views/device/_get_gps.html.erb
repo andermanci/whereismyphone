@@ -1,0 +1,61 @@
+
+<!--<div id="data" style="display:block;"></div>-->
+<%= include_gon %>
+<!--<input type="text" id="json" name="json" value=<%= @device_gps %> >-->
+<!--<input type="text" id="locations" name="locations" value="<%= @device_gps %>">-->
+<!--<button id="botoia" onclick='initMap()'>Show Map</button>-->
+<!--<div id="location" data-url="<%= @device_gps %>"></div>-->
+
+
+
+<script type="text/javascript">
+
+
+
+
+
+        handler = Gmaps.build('Google');
+        handler.buildMap({internal: {id: 'map'}}, function () {
+
+            //var json_array = [{"lat": 38, "lng": 40}];
+            var json;
+            json = gon.device_gps;
+            var json_array = JSON.parse(json);
+
+            //var markers = handler.addMarkers();
+            var markers = handler.addMarkers(json_array);
+
+            _.each(json_array, function (json, index) {
+                json.marker = markers[index];
+            });
+
+            createSidebar(json_array);
+            handler.bounds.extendWith(markers);
+            handler.fitMapToBounds();
+        });
+
+
+
+    function createSidebarLi(json){
+        return ("<tr><th>"+ json.day + " </th><th>" + json.hour + "</th><th>" + json.id + "</th></tr>" );
+    };
+
+    function bindLiToMarker($li, marker){
+        $li.on('click', function(){
+            handler.getMap().setZoom(14);
+            marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+            marker.panTo();
+            google.maps.event.trigger(marker.getServiceObject(), 'click');
+        })
+    };
+
+    function createSidebar(json_array){
+        _.each(json_array, function(json){
+            var $li = $( createSidebarLi(json) );
+            $li.appendTo('#map_container');
+            bindLiToMarker($li, json.marker);
+        });
+    };
+
+
+</script>

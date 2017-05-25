@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get "new_user" => "authentication#new_user"
   get "password_sent" => "authentication#password_sent"
 
+  get "device/get_gps" => "device#get_gps"
+
+
 
 
 
@@ -22,11 +25,12 @@ Rails.application.routes.draw do
   post "sign_in" => "authentication#login"
   post "new_user" => "authentication#register"
 
+
   #Device baten eragiketen routinga
-  post '/device/:id/activate_gps', to:'device#activate_GPS'
-  post '/device/:id/desactivate_gps', to:'device#desactivate_GPS'
-  post '/device/:id/activate_alarm', to:'device#activate_alarm'
-  post '/device/:id/desactivate_alarm', to:'device#desactivate_alarm'
+  get '/device/:id/activate_gps', to:'device#activate_GPS'
+  get '/device/:id/desactivate_gps', to:'device#desactivate_GPS'
+  get '/device/:id/activate_alarm', to:'device#activate_alarm'
+  get '/device/:id/desactivate_alarm', to:'device#desactivate_alarm'
   get '/device/:id', to:'device#selected_device', as: 'current_device'
 
   #GPS Date

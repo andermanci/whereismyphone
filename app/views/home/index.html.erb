@@ -1,6 +1,7 @@
 <% if current_user %>
     <div class="container">
       <div class="row">
+        <p><%= @proba %></p>
     <% @devices.each do |device| %>
             <div class="col-sm-4">
               <%=link_to(current_device_path(device.id) ) do%>
@@ -21,6 +22,67 @@
 <% else %>
     <br><br><br><br>
     <br><br><br><br>
-    <h1>ONGI ETORRI</h1>
+      <div class="wrap">
+        <div class="top-grids">
+          <div class="top-grid">
+            <div class="product-pic first-product-pic">
+              <%=image_tag("watch-img.png")%>
+            </div>
+            <span><label>1</label></span>
+            <div class="border"> </div>
+            <a href="#">Download the APP</a>
+          </div>
+          <div class="top-grid">
+            <div class="product-pic">
+              <%=image_tag("shoe-img.png")%>
+            </div>
+            <span><label>2</label></span>
+            <div class="border"> </div>
+            <a href="#">Syncronize your phone</a>
+          </div>
+          <div class="top-grid">
+            <div class="product-pic last-product-pic">
+              <%=image_tag("lap-img.png")%>
+            </div>
+            <span><label>3</label></span>
+            <a href="#">Locate it on the map</a>
+          </div>
+          <div class="clear"> </div>
+        </div>
+
+
+
+      </div>
+      <div class="mid-grids">
+        <div class="wrap">
+          <div class="mid-grids-left">
+            <%=image_tag("app-divices.jpg")%>
+          </div>
+          <div class="mid-grids-right">
+            <h3> Get <span>Whereismyphone</span> for your mobile</h3>
+            <p>The Whereismyphone app is available for both iOS and Android devices.</p>
+            <ul class="fea">
+              <li><a href="#"><i>Locate</i> your phone</a></li>
+              <li><a href="#"> Make the <i>Alarm</i> sound </a></li>
+              <li><a href="#"><i>Virtual trainer</i></a></li>
+              <li><a href="#"><i>Complete</i> with your friends </a></li>
+              <li><a href="#"><i>Share</i> your routes</a></li>
+            </ul>
+            <div class="big-btns">
+              <ul>
+                <li><a class="and" href="#"> </a></li>
+                <li><a class="iphone" href="#"> </a></li>
+                <div class="clear"> </div>
+              </ul>
+            </div>
+          </div>
+          <div class="clear"> </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
 <% end %>
 </div><br><br>
