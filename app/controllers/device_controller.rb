@@ -1,7 +1,9 @@
 
 class DeviceController < ApplicationController
+  helper ApplicationHelper
 
-  require 'fcm'
+  require 'firebase'
+  require 'gcm'
 
   def selected_device
 
@@ -11,7 +13,6 @@ class DeviceController < ApplicationController
       device= Device.find((params[:id]))
       if device
         #This function will get all the days, where the selected device send a GPS location
-        @device_gps_days=Location.where(device_id: params[:id]).select(:created_at).map{|c| {:year => c.created_at.year,:month => c.created_at.month, :day => c.created_at.day, } }.uniq
 
         @device= device
         session[:device]=params[:id]
@@ -24,37 +25,81 @@ class DeviceController < ApplicationController
     end
   end
 
+  def get_gps
+
+    if current_device
+
+      require 'json'
+      require 'gon'
+      # @proba = 'kaixo'
+      @device_gps2 = Location.where(device_id:session[:device]).select(:created_at, :long, :lat, :id).map{|c| {lat: c.lat.to_f, :lng => c.long.to_f, :day => c.created_at.strftime("%Y/%m/%d"), :hour => c.created_at.strftime("%H:%M:%S"), :id => c.id, :infowindow => c.created_at.strftime("%H:%M:%S")}}.uniq
+
+      @device_gps = @device_gps2.to_json
+
+      print(@device_gps)
+
+      gon.device_gps = @device_gps
+
+
+    end
+
+  end
 
 
 
   def activate_GPS
     if current_device
 
-      fcm = FCM.new("AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA")
-      options = { data: {score: "123"}, collapse_key: "activate_GPS"}
-      response = fcm.send(current_device.token, options)
+      require 'fcm'
+      fcmServer = FCM.new('AAAAUm2fpt4:APA91bHWeq-i1Dfc_ZgpQKqL5TIM3MBvXlMC4H8SVi8CDxvJKSEHHWgQvroxBO02XP0MGRZOZ6Y94Mz9auqfW_YzPzi4m0N7UUgvQDhsi0vLKsDKRWi5HpxuWS_nXxwiH0cNZs8fbhe9')
+
+      options = {}
+      options[:notification] = {}
+      options[:notification][:title] = 'GPS'
+      options[:notification][:body] = 'Connect'
+      options[:content_available] = true
+      options[:notification][:sound] = "default"
+      options[:notification][:click_action] = "FCM_PLUGIN_ACTIVITY"
+      options[:data] = {}
+      options[:data][:gps] = true
+      options[:priority] = 'high'
+
+      token = current_device.token
+      responseServer = fcmServer.send([token], options)
 
       session[:GPS]= 'yes'
-      render 'device/device'
+      redirect_to current_device_path
     else
       redirect_to :root
     end
 
   end
 
+
+
+
   def desactivate_GPS
     if current_device
-      if session[:GPS].to_s=='yes'
 
-        fcm = FCM.new("AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA ")
-        options = { collapse_key: "desactivate_GPS"}
-        response = fcm.send(current_device.token, options)
+      require 'fcm'
+      fcmServer = FCM.new('AAAAUm2fpt4:APA91bHWeq-i1Dfc_ZgpQKqL5TIM3MBvXlMC4H8SVi8CDxvJKSEHHWgQvroxBO02XP0MGRZOZ6Y94Mz9auqfW_YzPzi4m0N7UUgvQDhsi0vLKsDKRWi5HpxuWS_nXxwiH0cNZs8fbhe9')
 
-        session[:GPS]= 'no'
-        render 'device/device'
-      else
-        render 'device/device'
-      end
+      options = {}
+      options[:notification] = {}
+      options[:notification][:title] = 'GPS'
+      options[:notification][:body] = 'Disconnect'
+      options[:content_available] = true
+      options[:notification][:sound] = "default"
+      options[:notification][:click_action] = "FCM_PLUGIN_ACTIVITY"
+      options[:data] = {}
+      options[:data][:gps] = false
+      options[:priority] = 'high'
+
+      token = current_device.token
+      responseServer = fcmServer.send([token], options)
+
+      session[:GPS]= 'no'
+      redirect_to current_device_path
     else
       redirect_to :root
     end
@@ -63,32 +108,29 @@ class DeviceController < ApplicationController
   def activate_alarm
     if current_device
 
-      fcm = FCM.new("AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA ")
-      options = { collapse_key: "activate_alarm"}
-      response = fcm.send(current_device.token, options)
-      session[:alarm]= 'yes'
-      render 'device/device'
+      require 'fcm'
+      fcmServer = FCM.new('AAAAUm2fpt4:APA91bHWeq-i1Dfc_ZgpQKqL5TIM3MBvXlMC4H8SVi8CDxvJKSEHHWgQvroxBO02XP0MGRZOZ6Y94Mz9auqfW_YzPzi4m0N7UUgvQDhsi0vLKsDKRWi5HpxuWS_nXxwiH0cNZs8fbhe9')
+
+      options = {}
+      options[:notification] = {}
+      options[:notification][:title] = 'Alarm'
+      options[:notification][:body] = 'sound'
+      options[:content_available] = true
+      options[:notification][:sound] = 'siren.mp3'
+      options[:notification][:click_action] = "FCM_PLUGIN_ACTIVITY"
+      options[:data] = {}
+      options[:priority] = 'high'
+
+      token = current_device.token
+      responseServer = fcmServer.send([token], options)
+
+      redirect_to current_device_path
     else
       redirect_to :root
     end
 
   end
 
-  def desactivate_alarm
-    if current_device
-      if session[:alarm].to_s=='yes'
 
-        fcm = FCM.new("AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA ")
-        options = { collapse_key: "desactivate_alarm"}
-        response = fcm.send(current_device.token, options)
-        session[:alarm]= 'no'
-        render 'device/device'
-      else
-        render 'device/device'
-      end
-    else
-      redirect_to :root
-    end
-  end
 
 end

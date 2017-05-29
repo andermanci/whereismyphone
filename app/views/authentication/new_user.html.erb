@@ -1,22 +1,31 @@
 <h1>Sign Up</h1>
+<br><br><br><br>
+<div align="center">
+  <div align="left" style="width: 30%;">
 <%= form_for @user, :as => :user, :url => new_user_path(@user) do |f| %>
+    <br><br><br><br><br>
     <p>
-      <%= f.label 'username:' %><br/>
-      <%= f.text_field :username , :required => true%>
+      <b><%= f.label 'username:' %><br/></b>
+      <%= f.text_field :username , :required => true, class: "form-control"%>
       <%= show_field_error(@user, :username) %>
     </p>
+    <br><br>
     <p>
-      <%= f.label 'email:' %><br/>
-      <%= f.text_field :email , :required => true%>
+      <b><%= f.label 'email:' %><br/></b>
+      <%= f.text_field :email , :required => true, class: "form-control"%>
       <%= show_field_error(@user, :email) %>
     </p>
+    <br><br>
     <p>
-      <%= f.label 'password:' %><br/>
-      <%= f.password_field :password , :required => true %>
+      <b><%= f.label 'password:' %><br/></b>
+      <%= f.password_field :password , :required => true , class: "form-control"%>
       <%= show_field_error(@user, :password)%>
     </p>
+    <br><br>
     <p>
       <%= f.submit 'Sign Up' ,  class: "btn btn-primary"%>&nbsp;&nbsp;&nbsp;
       <%= f.submit 'Clear Form', :type => 'reset',  class: "btn btn-primary" %>
     </p>
+        </div>
+        </div>
 <% end %>

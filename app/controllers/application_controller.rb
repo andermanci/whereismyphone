@@ -15,4 +15,7 @@ class ApplicationController < ActionController::Base
     @current_device ||= Device.find(session[:device]) if session[:device]
   end
 
+
+
+
 end
