@@ -5,7 +5,7 @@ class Device < ApplicationRecord
             uniqueness: { case_sensitive: false }
   validates :info, presence: true, length: { maximum: 50 }
 
-  validates_confirmation_of :ip
+  validates_confirmation_of :token
   validates_presence_of :token, :on => :create
   validates_presence_of :name, :on => :create
   validates_presence_of :info, :on => :create

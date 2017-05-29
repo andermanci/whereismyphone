@@ -30,8 +30,8 @@ class DeviceController < ApplicationController
   def activate_GPS
     if current_device
 
-      fcm = FCM.new("AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA ")
-      options = { collapse_key: "activate_GPS"}
+      fcm = FCM.new("AIzaSyAf8cH_rC19EbpWyiFRKezYcMAUG3O4gyA")
+      options = { data: {score: "123"}, collapse_key: "activate_GPS"}
       response = fcm.send(current_device.token, options)
 
       session[:GPS]= 'yes'
