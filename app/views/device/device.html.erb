@@ -4,46 +4,41 @@
 
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXkiUat_KXHuDE_PNVpLL5MZREvoOMfB4"></script>
-
-
+<br><br><br><br><br><br>
 
 <% if current_device %>
     <div class="container">
-
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="panel panel-primary">
             <div class="panel-heading"><%= current_device.name %></div>
             <div class="panel-body"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/83002-200.png" class="img-responsive" style="width:100%" alt="Image"></div>
             <div class="panel-footer"><%= current_device.info %></div>
           </div>
+          <br>
+          <% if session[:GPS].nil? || session[:GPS].to_s=='no' %>
+              <%= link_to "Activate GPS", {:controller => :device, :action => 'activate_GPS' } ,
+                          {class: 'btn btn-success btn-lg '} %>
+
+          <% else %>
+              <%= link_to "Desactivate GPS", {:controller => :device, :action => 'desactivate_GPS' } ,
+                          {class: 'btn btn-warning btn-lg '} %><br><br>
+          <% end %>
+          <%= link_to "Activate Alarm" ,{:controller => :device, :action => 'activate_alarm' },
+                      {class: 'btn btn-danger btn-lg '} %>
 
         </div>
+        <div class="col-sm-8">
+          <br>
+          <div id="map" style='width: 800px; height: 400px;'>
+            <%= render 'device/get_gps' %>
+          </div>
+        </div>
 
-        <% if session[:GPS].nil? || session[:GPS].to_s=='no' %>
-            <%= link_to "Activate GPS", {:controller => :device, :action => 'activate_GPS' } ,
-                        {class: 'btn btn-success btn-lg '} %>
-            <%= link_to "Locate in Map", :remote => true, :class => 'getMap' %>
-        <% else %>
-            <%= link_to "Desactivate GPS", {:controller => :device, :action => 'desactivate_GPS' } ,
-                        {class: 'btn btn-warning btn-lg '} %>
-        <% end %>
-        <% if session[:alarm].nil? ||session[:alarm].to_s=='no' %>
-            <%= link_to "Activate Alarm" ,{:controller => :device, :action => 'activate_alarm' },
-                        {class: 'btn btn-danger btn-lg '} %>
-        <% else %>
-            <%= link_to "Desactivate Alarm", {:controller => :device, :action => 'desactivate_alarm' } ,
-                        {class: 'btn btn-warning btn-lg '} %>
-        <% end %>
+
       </div><br>
-      <p><%= @proba %></p>
-      <p><%= @device_gps %></p>
 
-      <div style='width: 800px;'>
-        <div id="map" style='width: 800px; height: 400px;'>
-          <%= render 'device/get_gps' %>
-        </div>
-      </div>
+
       <br><br><br>
 
       <h2>GPS SIGNAL DATES</h2>
@@ -55,7 +50,7 @@
           <th>Order</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="maptable">
 
 
         </tbody>
@@ -64,7 +59,7 @@
 
 
 
-
+      <br><br><br><br>
 <% else %>
     <% redirect_to :root %>
 <% end %>
@@ -80,6 +75,9 @@
             window.location = $(this).data("href");
         });
     });
+
+
+
 </script>
 
 

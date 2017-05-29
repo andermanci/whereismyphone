@@ -1,7 +1,8 @@
+
 <% if current_user %>
+    <br><br><br><br><br><br>
     <div class="container">
       <div class="row">
-        <p><%= @proba %></p>
     <% @devices.each do |device| %>
             <div class="col-sm-4">
               <%=link_to(current_device_path(device.id) ) do%>
@@ -12,13 +13,10 @@
                 </div>
               <% end %>
               </div>
-            <div class="row">
-
-            </div>
     <% end %>
 
       </div>
-    </div><br>
+    </div><br><br><br><br>
 <% else %>
     <br><br><br><br>
     <br><br><br><br>
@@ -26,7 +24,7 @@
         <div class="top-grids">
           <div class="top-grid">
             <div class="product-pic first-product-pic">
-              <%=image_tag("watch-img.png")%>
+              <%=image_tag("Icon.png", size: "180x180")%>
             </div>
             <span><label>1</label></span>
             <div class="border"> </div>
@@ -34,7 +32,7 @@
           </div>
           <div class="top-grid">
             <div class="product-pic">
-              <%=image_tag("shoe-img.png")%>
+              <%=image_tag("Synchronize.png", size: "180x180")%>
             </div>
             <span><label>2</label></span>
             <div class="border"> </div>
@@ -42,7 +40,7 @@
           </div>
           <div class="top-grid">
             <div class="product-pic last-product-pic">
-              <%=image_tag("lap-img.png")%>
+              <%=image_tag("lap-img.png", size: "250x180")%>
             </div>
             <span><label>3</label></span>
             <a href="#">Locate it on the map</a>
@@ -56,7 +54,7 @@
       <div class="mid-grids">
         <div class="wrap">
           <div class="mid-grids-left">
-            <%=image_tag("app-divices.jpg")%>
+            <%=image_tag("app-divices.jpg", size: "1500x350")%>
           </div>
           <div class="mid-grids-right">
             <h3> Get <span>Whereismyphone</span> for your mobile</h3>
@@ -64,9 +62,6 @@
             <ul class="fea">
               <li><a href="#"><i>Locate</i> your phone</a></li>
               <li><a href="#"> Make the <i>Alarm</i> sound </a></li>
-              <li><a href="#"><i>Virtual trainer</i></a></li>
-              <li><a href="#"><i>Complete</i> with your friends </a></li>
-              <li><a href="#"><i>Share</i> your routes</a></li>
             </ul>
             <div class="big-btns">
               <ul>
@@ -83,6 +78,45 @@
 
 
 
+    </div>
+    <div class="footer-grids">
+      <div class="wrap">
+        <div class="footer-grid">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="<%=root_path%>">Home</a></li>
+            <li><a href="<%=new_user_path%>">Sign up</a></li>
+            <li><a href="<%=sign_in_path%>">Sign In</a></li>
+          </ul>
+        </div>
+        <div class="footer-grid">
+          <h3>More</h3>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms and Conditions</a></li>
+          </ul>
+        </div>
+        <div class="footer-grid">
+          <h3>Connect With Us</h3>
+          <ul class="social-icons">
+            <li><a class="facebook" href="#"> </a></li>
+            <li><a class="twitter" href="#"> </a></li>
+            <li><a class="youtube" href="#"> </a></li>
+          </ul>
+        </div>
+        <div class="footer-grid">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter to keep up-to-date with all the latest news.</p>
+          <form>
+            <input type="text" class="text" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}">
+            <input type="text" class="text" value="Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}">
+            <input type="submit" value="subscribe" />
+          </form>
+        </div>
+        <div class="clear"> </div>
+      </div>
     </div>
 <% end %>
 </div><br><br>

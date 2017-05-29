@@ -1,7 +1,7 @@
 /**
  * Created by andermanci on 19/5/17.
  */
-$('.getMap').bind('ajax:success', function () {
+$(document).ready(function () {
     // will call refreshPartial every 30 seconds
     setInterval(refreshMap, 15000)
 

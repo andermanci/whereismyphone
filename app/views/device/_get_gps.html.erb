@@ -10,10 +10,6 @@
 
 <script type="text/javascript">
 
-
-
-
-
         handler = Gmaps.build('Google');
         handler.buildMap({internal: {id: 'map'}}, function () {
 
@@ -37,8 +33,9 @@
 
 
     function createSidebarLi(json){
-        return ("<tr><th>"+ json.day + " </th><th>" + json.hour + "</th><th>" + json.id + "</th></tr>" );
+        return ("<tr><td>"+ json.day + " </td><td>" + json.hour + "</td><td>" + json.id + "</td></tr>" );
     };
+
 
     function bindLiToMarker($li, marker){
         $li.on('click', function(){
@@ -50,9 +47,10 @@
     };
 
     function createSidebar(json_array){
+        $('#maptable').empty();
         _.each(json_array, function(json){
             var $li = $( createSidebarLi(json) );
-            $li.appendTo('#map_container');
+            $li.appendTo('#maptable');
             bindLiToMarker($li, json.marker);
         });
     };
