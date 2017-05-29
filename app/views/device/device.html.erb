@@ -13,7 +13,9 @@
           <div class="panel panel-primary">
             <div class="panel-heading"><%= current_device.name %></div>
             <div class="panel-body"><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/83002-200.png" class="img-responsive" style="width:100%" alt="Image"></div>
-            <div class="panel-footer"><%= current_device.info %></div>
+            <div class="panel-footer"><p>Info:  </p><%= current_device.info %>
+            <br>
+              <p>Synchronisation ID:  </p><%= current_device.id %> </div>
           </div>
           <br>
           <% if session[:GPS].nil? || session[:GPS].to_s=='no' %>
