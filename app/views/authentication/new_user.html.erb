@@ -4,6 +4,8 @@
   <div align="left" style="width: 30%;">
 <%= form_for @user, :as => :user, :url => new_user_path(@user) do |f| %>
     <br><br><br><br><br>
+        <b><p style="font-size: 250%">SIGN UP</p></b>
+        <br><br>
     <p>
       <b><%= f.label 'username:' %><br/></b>
       <%= f.text_field :username , :required => true, class: "form-control"%>
